@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkbloid_client"]=self["webpackChunkbloid_client"]||[]).push([[883],{5883:function(t,e,l){l.r(e),l.d(e,{default:function(){return d}});var s=function(){var t=this,e=t.$createElement,l=t._self._c||e;return l("div",[t._v(" "+t._s(JSON.stringify(t.logs))+" ")])},n=[],u={name:"LogView",data(){return{logs:[]}},watch:{ldTestResult(){this.logs.unshift(this.ldTestResult)}},computed:{ldTestResult(){return this.$store.state.ld.ldTestResult}}},i=u,r=l(1001),c=(0,r.Z)(i,s,n,!1,null,null,null),d=c.exports}}]);
+//# sourceMappingURL=883.b3f6f275.js.map
