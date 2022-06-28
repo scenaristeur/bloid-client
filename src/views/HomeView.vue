@@ -15,13 +15,10 @@
       <li>
         log view
         <LogView />
-
+        <CrudHistory />
       </li>
-
-
     </ul>
-    <b-button v-b-modal.modal-letview>Launch demo modal</b-button>
-    <LetView />
+    <CrudLet />
   </div>
 </template>
 
@@ -35,7 +32,8 @@ export default {
     // HelloWorld
     'TerminalView': ()=>import('@/views/TerminalView'),
     'LogView': ()=>import('@/views/LogView'),
-    'LetView': ()=>import('@/views/crud/LetView'),
+    'CrudLet': ()=>import('@/views/crud/CrudLet'),
+    'CrudHistory': ()=>import('@/views/crud/CrudHistory'),
   }
 }
 </script>

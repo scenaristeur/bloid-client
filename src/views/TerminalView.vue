@@ -56,7 +56,10 @@ export default {
         &emsp;&emsp;&emsp;or 'let thingName' <br>
         &emsp;&emsp;&emsp;or 'let fieldOne fieldTwo'<br>
         &emsp;&emsp;&emsp;or 'let field1=value1 field2=value2'<br>
-        &nbsp;ls<br>
+        &nbsp;get  &emsp; get all things<br>
+        &nbsp;get fada  &emsp; get all things with fada in subject or prop or object<br>
+
+        &nbsp;ls&emsp; list files /folders<br>
 
         &nbsp;cd [dir]<br>
         &nbsp;clear<br>
@@ -172,10 +175,26 @@ export default {
 
       this.commands.let = ({_}) =>{
         this.$store.commit('crud/setCreateParams', _)
-        this.$bvModal.show('modal-letview')
-
+        this.$bvModal.show('modal-crudlet')
         return createStdout("let done "+ _[1] + " " +_)
-
+      }
+      this.commands.get = ({_}) =>{
+        console.log("get",_.length, _[1])
+        if (_.length < 3){
+          let crud = {
+            action: "get",
+            what: _[1],
+            limit:26, // return the last 25 things created
+            start: Date.now()
+          }
+          console.log(crud)
+          this.$io_ld_crud(crud)
+        }else{
+          this.$bvModal.show('modal-crudlet')
+        }
+        // this.$store.commit('crud/setCreateParams', _)
+        // this.$bvModal.show('modal-crudget')
+        return createStdout("get done "+ _[1] + " " +_)
       }
 
 

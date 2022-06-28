@@ -1,5 +1,5 @@
 <template>
-  <b-modal id="modal-letview" title="Let" size="lg" @ok="save"
+  <b-modal id="modal-crudlet" title="Let" size="lg" @ok="save"
   :ok-disabled="thing.name==undefined || thing.name.length==0"
   :ok-variant="thing.name==undefined || thing.name.length==0 ? 'secondary' : 'success'"
   >
@@ -68,7 +68,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
 export default {
-  name: "LetView",
+  name: "CrudLet",
   data() {
     return {
       thing: {},
