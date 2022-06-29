@@ -24,33 +24,21 @@ const mutations = {
     state.highlightNodes.clear();
     state.highlightLinks.clear();
     nodes.forEach(item => {
-      console.log(item)
+      // console.log(item)
       state.highlightNodes.add(item)
     })
     Vue.prototype.$updateHighlight()
   },
   updateGraph(state, g){
-    console.log(g)
-  //  let {nodes, links} = state.graph.graphData()
-    // let nodes = this.nodes.map(a => {return {...a}})
-    // let links = this.links.map(a => {return {...a}})
     state.graph.graphData(g)
-  }
-  // setCreateParams(state, p){
-  //   let params = {array: p}
-  //   state.createParams = params
-  // },
-  // setThing(state, t){
-  //   state.Thing = t
-  // },
-  // addHistory(state, a){
-  //   state.history.unshift(a)
-  //   console.log("state.history", state.history)
-  // },
-  // setPodStorage(state,s){
-  //   state.podStorage = s
-  // },
+  },
+  addNode(state, n){
+    let {nodes, links} = state.graph.graphData()
+    var index = nodes.findIndex(x => x['@id']==n['@id']);
+    index === -1 ? nodes.push(n) : Object.assign(nodes[index], n)
 
+    state.graph.graphData({nodes:nodes, links: links})
+  }
 }
 
 

@@ -6,61 +6,22 @@ import { io } from "socket.io-client";
 const plugin = {
   install(Vue, opts = {}) {
     let store = opts.store
-    // vatch-vue hosted on github can access your local storage
-    //let socket = Vue.prototype.$socket = io('http://localhost:3000');
-    // share your localhost storage on your localnetwork
-    let location = window.location.toString()
-    console.log("location",location)
-
-    // if(location.startsWith("https://scenaristeur.github.io/bloid-client/")){
-    //   console.info("Bloid Client Location: "+location+" -> Connecting to your local filesystem through socket.io on ", def_server)
-    // }else{
-    //   //server = ':3000'
-    //   console.info("Bloid Client Location: "+location+" -> Sharing your local filesystem to your local network through socket.io on ", def_server)
-    // }
-
-    // console.log("server",ws)
-    //let socket = Vue.prototype.$socket = io(server);
     let socket
-
-
     Vue.prototype.$socket_connect = async function(){
       let server = store.state.vatch.host
       let port = store.state.vatch.port
-      // let sock
-      // console.log("try",server, port, io)
-      // while(sock == undefined || port == "5000"){
-      //   socket = Vue.prototype.$socket = io(server+port);
-      // setTimeout(() => {
-      //   console.log("try to connect / Retardée d'une seconde.", server, port);
-      // //  sock = io(server+port);
-      //   port++
-      // }, "1000")
-      //
-      //   socket = Vue.prototype.$socket = sock
-      //
-      // }
+
       console.log(server, port)
 
       socket = Vue.prototype.$socket = io(server+":"+port);
-
-      //Vue.prototype.$socket_connect()
-
-      // socket.onAny((event, ...args) => {
-      //   console.log(`reçu ${event}, ${args}`);
-      // });
 
       socket.on("connect_error", (error) => {
         console.info(error)
 
       });
 
-
-
       socket.on('connect', () => {
         store.commit("vatch/setUser", socket.id)
-
-
         socket.on('init', function(init) {
           console.log('init',init)
           store.commit("vatch/updatepathSep", init.pathsep)
@@ -97,11 +58,6 @@ const plugin = {
           store.commit("vatch/addChatMessage", msg)
         });
 
-
-
-
-
-
         socket.on('disconnect', () => {
           store.commit("vatch/setUser", null)
         });
@@ -112,12 +68,16 @@ const plugin = {
         });
 
         socket.on('ld_crud', function(result) {
-          console.log(result)
-          if(result.status == "ok"){
-            store.commit("crud/addHistory", result)
-            store.commit("graph/updateGraph", Vue.prototype.$resultToGraph(result))
+          //console.log(result)
+          if (result.action == "ld_object"){
+            store.commit("graph/addNode",result.obj)
           }else{
-            alert(result.err)
+            if(result.status == "ok"){
+              store.commit("crud/addHistory", result)
+              //  store.commit("graph/updateGraph", Vue.prototype.$resultToGraph(result))
+            }else{
+              alert(result.err)
+            }
           }
         });
 

@@ -9,43 +9,43 @@ const plugin = {
     // let store = opts.store
     // console.log(store)
 
-    Vue.prototype.$resultToGraph =  function(result){
-      let graph = {nodes: [], links: []}
-      console.log(result)
-      if(Array.isArray(result.result)){
-        result.result.forEach(function (r){
-          console.log(r)
-          var index = graph.nodes.findIndex(x => x['@id']==r.subject);
-          console.log(index)
-          if(index === -1){
-            graph.nodes.push({"@id": r.subject})
-          }else{
-            console.log(index)
-            console.log(r.predicate)
-            console.log(r.object, typeof r.object)
-            console.log(graph.nodes[index][r.predicate])
-            //r.object = (typeof r.object == "string")? r.object.replace('"\\"', '"').replace('\\""', '') : r.object
-            if(graph.nodes[index][r.predicate] == undefined){
-              graph.nodes[index][r.predicate] = r.object
-            }else if (Array.isArray(graph.nodes[index][r.predicate])){
-              graph.nodes[index][r.predicate].push(r.object)
-            }else if (typeof graph.nodes[index][r.predicate] == "object"){
-              let old = graph.nodes[index][r.predicate]
-              graph.nodes[index][r.predicate] = [old]
-              graph.nodes[index][r.predicate].push(r.object)
-            }
-            //Object.assign(graph.nodes[index][r.predicate], r.object)
-          }
-          console.log("gn",graph.nodes)
-
-        })
-      }
-      else{
-        graph.nodes.push(result.result)
-      }
-
-      return graph
-    }
+    // Vue.prototype.$resultToGraph =  function(result){
+    //   let graph = {nodes: [], links: []}
+    //   console.log(result)
+    //   if(Array.isArray(result.result)){
+    //     result.result.forEach(function (r){
+    //       console.log(r)
+    //       var index = graph.nodes.findIndex(x => x['@id']==r.subject);
+    //       console.log(index)
+    //       if(index === -1){
+    //         graph.nodes.push({"@id": r.subject})
+    //       }else{
+    //         console.log(index)
+    //         console.log(r.predicate)
+    //         console.log(r.object, typeof r.object)
+    //         console.log(graph.nodes[index][r.predicate])
+    //         //r.object = (typeof r.object == "string")? r.object.replace('"\\"', '"').replace('\\""', '') : r.object
+    //         if(graph.nodes[index][r.predicate] == undefined){
+    //           graph.nodes[index][r.predicate] = r.object
+    //         }else if (Array.isArray(graph.nodes[index][r.predicate])){
+    //           graph.nodes[index][r.predicate].push(r.object)
+    //         }else if (typeof graph.nodes[index][r.predicate] == "object"){
+    //           let old = graph.nodes[index][r.predicate]
+    //           graph.nodes[index][r.predicate] = [old]
+    //           graph.nodes[index][r.predicate].push(r.object)
+    //         }
+    //         //Object.assign(graph.nodes[index][r.predicate], r.object)
+    //       }
+    //       console.log("gn",graph.nodes)
+    //
+    //     })
+    //   }
+    //   else{
+    //     graph.nodes.push(result.result)
+    //   }
+    //
+    //   return graph
+    // }
 
 
     Vue.prototype.$newNode = async function(options = {}){
