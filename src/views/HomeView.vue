@@ -1,35 +1,19 @@
 <template>
   <div class="home">
-    see <a href="https://scenaristeur.github.io/vatch-vue">https://scenaristeur.github.io/vatch-vue/</a>
-    <!-- <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <ul>
-      <li>
-        config to select bloid server
-      </li>
-      <li>
-        terminal like in agent
-        <TerminalView />
-      </li>
-
-      <li>
-        log view
-        <LogView />
-        <CrudHistory />
-      </li>
-    </ul>
+    <SocketConnect />
+    <TerminalView />
+    <CrudHistory />
     <CrudLet />
+    <LogView />
+    <!-- config to select bloid server -->
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
   name: 'HomeView',
   components: {
-    // HelloWorld
+    'SocketConnect': ()=>import('@/views/socket/SocketConnect'),
     'TerminalView': ()=>import('@/views/TerminalView'),
     'LogView': ()=>import('@/views/LogView'),
     'CrudLet': ()=>import('@/views/crud/CrudLet'),

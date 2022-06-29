@@ -1,6 +1,7 @@
 const state = () => ({
   createParams: null,
-  history: []
+  history: [],
+  thing : {}
 })
 
 const actions = {
@@ -21,8 +22,11 @@ const mutations = {
     let params = {array: p}
     state.createParams = params
   },
+  setThing(state, t){
+    state.Thing = t
+  },
   addHistory(state, a){
-    state.history.push(a)
+    state.history.unshift(a)
     console.log("state.history", state.history)
   },
   // setPodStorage(state,s){

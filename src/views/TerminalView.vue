@@ -13,7 +13,7 @@
     title="user@local"
     :stdin.sync="stdin"
     show-help/>
-    <b-button @click="close">X</b-button>
+    <!-- <b-button @click="close">X</b-button> -->
   </div>
 </template>
 

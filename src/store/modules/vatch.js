@@ -15,7 +15,9 @@ const state = () => ({
   storage: null,
   input: '',
   resourceToTag: null,
-  networkAdds: {}
+  networkAdds: {},
+  host: 'http://localhost',
+  port: "5000"
 })
 
 const actions = {
@@ -32,6 +34,10 @@ const actions = {
 }
 
 const mutations = {
+  setServer(state, server){
+    state.host = server.host
+    state.port = server.port
+  },
   setInput(state, i){
     state.input = i
   },

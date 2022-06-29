@@ -79,13 +79,13 @@ export default {
     createParams() {
       let template = {
         "@context": {
-          "@vocab": "https://www.wikidata.org/wiki/",
+          "@vocab": "https://scenaristeur/github.io/bloid/",
           "name": "https://www.wikidata.org/wiki/Q82799",
           "type": "https://www.wikidata.org/wiki/Q21146257",
           "description": "https://www.wikidata.org/wiki/Q1200750",
           "version": "https://www.wikidata.org/wiki/Q20826013",
           "creator": "https://www.wikidata.org/wiki/Q2500638",
-          "@base": "https://www.wikidata.org/wiki/"
+        //  "@base": "https://www.wikidata.org/wiki/"
         },
         "@id": "{@id}",
         "name": null,

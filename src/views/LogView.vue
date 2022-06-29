@@ -1,7 +1,7 @@
 <template>
-  <div>
-    {{JSON.stringify(logs)}}
-  </div>
+  <span>
+    logview {{JSON.stringify(logs)}} (type test)
+  </span>
 </template>
 
 <script>
@@ -9,7 +9,7 @@ export default {
   name: "LogView",
   data(){
     return {
-      logs: []
+      logs: null
     }
   },
   watch : {
