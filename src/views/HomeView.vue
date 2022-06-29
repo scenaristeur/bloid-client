@@ -1,7 +1,18 @@
 <template>
   <div class="home">
     <SocketConnect />
-    <TerminalView />
+
+    <b-row>
+      <b-col md="6">
+        <TerminalView />
+      </b-col>
+      <b-col md="6">
+        <GraphView />
+
+      </b-col>
+    </b-row>
+
+
     <CrudHistory />
     <CrudLet />
     <LogView />
@@ -18,6 +29,7 @@ export default {
     'LogView': ()=>import('@/views/LogView'),
     'CrudLet': ()=>import('@/views/crud/CrudLet'),
     'CrudHistory': ()=>import('@/views/crud/CrudHistory'),
+    'GraphView': ()=>import('@/views/graph/GraphView'),
   }
 }
 </script>

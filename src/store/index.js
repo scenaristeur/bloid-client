@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import vatch from './modules/vatch'
 import ld from './modules/ld'
 import crud from './modules/crud'
+import graph from './modules/graph'
 
 Vue.use(Vuex)
 
@@ -19,6 +20,7 @@ export default new Vuex.Store({
     //solid,
     vatch,
     ld,
-    crud
+    crud,
+    graph
   }
 })

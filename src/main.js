@@ -4,10 +4,11 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import VueSocket from './plugins/vue-socket';
-
-
-
+import Graph3dPlugin from './plugins/graph3d-plugin';
+import ToolsPlugin from './plugins/tools-plugin';
 Vue.use(VueSocket, {store: store});
+Vue.use(Graph3dPlugin, {store: store});
+Vue.use(ToolsPlugin, {store: store});
 
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 

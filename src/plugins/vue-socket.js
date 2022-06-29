@@ -44,81 +44,86 @@ const plugin = {
 
       socket = Vue.prototype.$socket = io(server+":"+port);
 
-//Vue.prototype.$socket_connect()
+      //Vue.prototype.$socket_connect()
 
-    // socket.onAny((event, ...args) => {
-    //   console.log(`reçu ${event}, ${args}`);
-    // });
+      // socket.onAny((event, ...args) => {
+      //   console.log(`reçu ${event}, ${args}`);
+      // });
 
-    socket.on("connect_error", (error) => {
-    console.info(error)
+      socket.on("connect_error", (error) => {
+        console.info(error)
 
-    });
-
-
-
-    socket.on('connect', () => {
-      store.commit("vatch/setUser", socket.id)
-
-
-          socket.on('init', function(init) {
-            console.log('init',init)
-            store.commit("vatch/updatepathSep", init.pathsep)
-          });
-
-          socket.on('users', function(users) {
-            console.log("users",users)
-            store.commit("vatch/setUsers", users)
-          });
-
-          socket.on('watcher event', function(ressources) {
-            console.log("Watcher event",ressources)
-            store.commit("vatch/updateLocalResources", ressources)
-          });
-
-          socket.on('walker', function(ressources) {
-            console.log("Walker",ressources)
-            store.commit("vatch/updateLocalResources", ressources)
-          });
-
-          socket.on('cat file', function(file) {
-            console.log(file)
-            if(file.callback != undefined){
-              store.dispatch(file.callback, file)
-            }else{
-              console.log("TODO PROCESSFILE cat file", file)
-              store.commit("vatch/setFile", file)
-            }
-
-          });
-
-          socket.on('chat message', function(msg) {
-            console.log('chat message',msg)
-            store.commit("vatch/addChatMessage", msg)
-          });
-
-
-
-
-
-
-      socket.on('disconnect', () => {
-        store.commit("vatch/setUser", null)
-      });
-
-      socket.on('ld_test', function(result) {
-        console.log(result)
-        store.commit("ld/setLdTestResult", result)
-      });
-
-      socket.on('ld_crud', function(result) {
-        console.log(result)
-        store.commit("crud/addHistory", result)
       });
 
 
-    });
-  }
+
+      socket.on('connect', () => {
+        store.commit("vatch/setUser", socket.id)
+
+
+        socket.on('init', function(init) {
+          console.log('init',init)
+          store.commit("vatch/updatepathSep", init.pathsep)
+        });
+
+        socket.on('users', function(users) {
+          console.log("users",users)
+          store.commit("vatch/setUsers", users)
+        });
+
+        socket.on('watcher event', function(ressources) {
+          console.log("Watcher event",ressources)
+          store.commit("vatch/updateLocalResources", ressources)
+        });
+
+        socket.on('walker', function(ressources) {
+          console.log("Walker",ressources)
+          store.commit("vatch/updateLocalResources", ressources)
+        });
+
+        socket.on('cat file', function(file) {
+          console.log(file)
+          if(file.callback != undefined){
+            store.dispatch(file.callback, file)
+          }else{
+            console.log("TODO PROCESSFILE cat file", file)
+            store.commit("vatch/setFile", file)
+          }
+
+        });
+
+        socket.on('chat message', function(msg) {
+          console.log('chat message',msg)
+          store.commit("vatch/addChatMessage", msg)
+        });
+
+
+
+
+
+
+        socket.on('disconnect', () => {
+          store.commit("vatch/setUser", null)
+        });
+
+        socket.on('ld_test', function(result) {
+          console.log(result)
+          store.commit("ld/setLdTestResult", result)
+        });
+
+        socket.on('ld_crud', function(result) {
+          console.log(result)
+          if(result.status == "ok"){
+            store.commit("crud/addHistory", result)
+            store.commit("graph/updateGraph", Vue.prototype.$resultToGraph(result))
+          }else{
+            alert(result.err)
+          }
+        });
+
+
+      });
+    }
 
 
     Vue.prototype.$io_ld_crud= async function(params){
