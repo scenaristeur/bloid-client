@@ -11,7 +11,7 @@
 
       </b-col>
     </b-row>
-
+<BrainsView />
 
     <CrudHistory />
     <CrudLet />
@@ -30,6 +30,7 @@ export default {
     'CrudLet': ()=>import('@/views/crud/CrudLet'),
     'CrudHistory': ()=>import('@/views/crud/CrudHistory'),
     'GraphView': ()=>import('@/views/graph/GraphView'),
+    'BrainsView': ()=>import('@/views/graph/BrainsView'),
   }
 }
 </script>

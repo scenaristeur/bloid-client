@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunkbloid_client"]=self["webpackChunkbloid_client"]||[]).push([[811],{3811:function(e,n,t){t.r(n),t.d(n,{default:function(){return s}});var r=function(){var e=this,n=e.$createElement,t=e._self._c||n;return t("div",[t("div",{ref:"graph",attrs:{id:"graph",width:"100px"}},[e._v("Loading graph...")])])},i=[],l={name:"GraphView",components:{},mounted(){this.$graphInit({domElement:this.$refs.graph})}},a=l,u=t(1001),h=(0,u.Z)(a,r,i,!1,null,null,null),s=h.exports}}]);
-//# sourceMappingURL=811.4f68cfe6.js.map

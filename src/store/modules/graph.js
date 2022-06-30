@@ -6,13 +6,29 @@ const state = () => ({
   hoverNode: null,
   search: null,
   nodes: [],
-  links: []
+  links: [],
+  brains: [],
+  toobar_disabled: true
 })
 
 
 const mutations = {
+  stash(state, params){
+    let {nodes, links} = state.graph.graphData()
+    params.nodes = nodes
+    params.links = links
+    params.date = Date.now()
+    state.brains.push(params)
+    state.graph.graphData({nodes: [], links: []})
+    this.commit('graph/setToolBarDisabled')
+  },
+  clear(state){
+    state.graph.graphData({nodes: [], links: []})
+    this.commit('graph/setToolBarDisabled')
+  },
   setGraph(state, g){
     state.graph = g
+    this.commit('graph/setToolBarDisabled')
   },
   setCurrentNode(state, n){
     state.currentNode = n
@@ -31,6 +47,7 @@ const mutations = {
   },
   updateGraph(state, g){
     state.graph.graphData(g)
+    this.commit('graph/setToolBarDisabled')
   },
   addNode(state, n){
     let {nodes, links} = state.graph.graphData()
@@ -38,6 +55,12 @@ const mutations = {
     index === -1 ? nodes.push(n) : Object.assign(nodes[index], n)
 
     state.graph.graphData({nodes:nodes, links: links})
+    this.commit('graph/setToolBarDisabled')
+  },
+  setToolBarDisabled(state){
+    let {nodes, links} = state.graph.graphData()
+    console.log(nodes,links)
+    state.toobar_disabled = nodes == undefined ||nodes.length ==0
   }
 }
 

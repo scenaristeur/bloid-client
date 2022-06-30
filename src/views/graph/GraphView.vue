@@ -1,7 +1,8 @@
 <template>
   <div>
     <div id="graph" width="100px" ref="graph">Loading graph...</div>
-    <!-- config to select bloid server -->
+    <ToolBar />
+    
   </div>
 </template>
 
@@ -9,11 +10,7 @@
 export default {
   name: 'GraphView',
   components: {
-    // 'SocketConnect': ()=>import('@/views/socket/SocketConnect'),
-    // 'TerminalView': ()=>import('@/views/TerminalView'),
-    // 'LogView': ()=>import('@/views/LogView'),
-    // 'CrudLet': ()=>import('@/views/crud/CrudLet'),
-    // 'CrudHistory': ()=>import('@/views/crud/CrudHistory'),
+    'ToolBar': ()=>import('@/views/graph/ToolBar')
   },
   mounted(){
     this.$graphInit({domElement: this.$refs.graph})
