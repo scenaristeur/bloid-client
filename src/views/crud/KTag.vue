@@ -44,9 +44,9 @@ export default {
         console.log(t)
         let tag = {}
         if(t.url !=undefined){
-          tag = {'@id': t.url, name: t.item.match.text, description: t.item.description, source: t.item.repository  }
+          tag = {'@id': t.url, name: t.item.match.text, description: t.item.description, 'https://www.wikidata.org/wiki/Q3523102': t.item.repository  }
         }else{
-          tag = {text: t.text, source: "none"}
+          tag = {text: t.text, 'https://www.wikidata.org/wiki/Q3523102': "none"}
         }
 
         return tag

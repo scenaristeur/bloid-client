@@ -1,5 +1,5 @@
 <template>
-  <b-modal id="modal-crudlet" title="Let" size="lg" @ok="save"
+  <b-modal id="modal-crudlet" title="Let" size="lg" @ok="save" @cancel="onCancel"
   :ok-disabled="thing.name==undefined || thing.name.length==0"
   :ok-variant="thing.name==undefined || thing.name.length==0 ? 'secondary' : 'success'"
   >
@@ -18,7 +18,17 @@
           <label :for="`field-${k}`">{{k}}</label>
         </b-col>
         <b-col sm="9">
-          <div v-if="Array.isArray(thing[k])" > Multiple</div>
+
+          <div v-if="Array.isArray(thing[k])" > Multiple<br>
+            <b-button v-for="(v , i) in thing[k]" :key="i" size="sm" :variant="thingVariant(v)">{{v.name || v.text}} ({{v.description}})({{v['https://www.wikidata.org/wiki/Q3523102']}})</b-button>
+          </div>
+          <!-- <div v-else>
+            <b-button size="sm" :variant="thingVariant(thing[k])">{{thing[k]}}</b-button>
+
+          </div> -->
+
+
+
           <b-form-input v-if="k == 'name'" :id="`field-${k}`" autofocus :state="thing[k] != null && thing[k].length>0" v-model="thing[k]" :placeholder="'{'+k+'}'"></b-form-input>
 
           <div v-else>
@@ -84,13 +94,10 @@ export default {
     }
   },
   methods: {
-
     save(){
       console.log("save ", this.thing)
       let extraProps = this.$store.state.crud.currentThingExtraProps
       console.log(extraProps)
-
-
       for (const [key, value] of Object.entries(extraProps)) {
         console.log(`${key}: ${value}`);
         let v = this.thing[key]
@@ -103,19 +110,28 @@ export default {
           this.thing[key] = [this.thing[key]]
           this.thing[key].push(value)
         }
-
-
-
-
       }
-
-
-
-
       let crud = {action: "create", thing: this.thing, start: Date.now()}
       this.new_field = ""
       this.$io_ld_crud(crud)
       this.$store.commit('crud/resetCurrentThingExtraProps')
+    },
+    thingVariant(t){
+      let variant = "outline-secondary"
+      switch (t['https://www.wikidata.org/wiki/Q3523102']) { // source
+        case 'wikidata':
+        variant = 'outline-success'
+        break;
+        case 'local':
+        variant = 'outline-warnig'
+        break;
+        default:
+        console.log("no variant for ", t['https://www.wikidata.org/wiki/Q3523102'])
+      }
+      return variant
+    },
+    onCancel(){
+      console.log("todo cancel")
     },
     add(){
       if(this.new_field.length > 0){
