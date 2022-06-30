@@ -18,9 +18,13 @@
           <label :for="`field-${k}`">{{k}}</label>
         </b-col>
         <b-col sm="9">
+          <div v-if="Array.isArray(thing[k])" > Multiple</div>
           <b-form-input v-if="k == 'name'" :id="`field-${k}`" autofocus :state="thing[k] != null && thing[k].length>0" v-model="thing[k]" :placeholder="'{'+k+'}'"></b-form-input>
-          <b-form-input v-else :id="`field-${k}`" v-model="thing[k]" :placeholder="'{'+k+'}'"></b-form-input>
 
+          <div v-else>
+            <b-form-input :id="`field-${k}`" v-model="thing[k]" :placeholder="'{'+k+'}'"></b-form-input>
+            <KTag :thing="thing" :k="k"/>
+          </div>
           <!--
           <b-form-input v-if="thing[k].split('^^').length > 0" :type="thing[k].split('^^')[1]" v-model="thing[k].split('^^')[0]" >
 
@@ -69,6 +73,10 @@ import { v4 as uuidv4 } from 'uuid';
 
 export default {
   name: "CrudLet",
+  components: {
+    'KTag': ()=>import('@/views/crud/KTag'),
+  },
+
   data() {
     return {
       thing: {},
@@ -80,6 +88,7 @@ export default {
     save(){
       console.log("save ", this.thing)
       let crud = {action: "create", thing: this.thing, start: Date.now()}
+      this.new_field = ""
       this.$io_ld_crud(crud)
     },
     add(){
@@ -88,8 +97,8 @@ export default {
       }
       console.log(this.thing)
       this.new_field = ""
+    },
 
-    }
   },
   watch: {
     createParams() {
