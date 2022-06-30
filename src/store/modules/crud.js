@@ -1,7 +1,8 @@
 const state = () => ({
   createParams: null,
   history: [],
-  thing : {}
+  thing : {},
+  currentThingExtraProps: {}
 })
 
 const actions = {
@@ -18,6 +19,13 @@ const actions = {
 }
 
 const mutations = {
+  setCurrentThingExtraProp(state, p){
+    console.log(p)
+    state.currentThingExtraProps[p.key] = p.tags
+  },
+  resetCurrentThingExtraProps(state){
+    state.currentThingExtraProps = {}
+  },
   setCreateParams(state, p){
     let params = {array: p}
     state.createParams = params

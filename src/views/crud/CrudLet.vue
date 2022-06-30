@@ -22,7 +22,7 @@
           <b-form-input v-if="k == 'name'" :id="`field-${k}`" autofocus :state="thing[k] != null && thing[k].length>0" v-model="thing[k]" :placeholder="'{'+k+'}'"></b-form-input>
 
           <div v-else>
-            <b-form-input :id="`field-${k}`" v-model="thing[k]" :placeholder="'{'+k+'}'"></b-form-input>
+            <!-- <b-form-input :id="`field-${k}`" v-model="thing[k]" :placeholder="'{'+k+'}'"></b-form-input> -->
             <KTag :thing="thing" :k="k"/>
           </div>
           <!--
@@ -87,9 +87,35 @@ export default {
 
     save(){
       console.log("save ", this.thing)
+      let extraProps = this.$store.state.crud.currentThingExtraProps
+      console.log(extraProps)
+
+
+      for (const [key, value] of Object.entries(extraProps)) {
+        console.log(`${key}: ${value}`);
+        let v = this.thing[key]
+        console.log(v)
+        if (v == null || v.length == 0){
+          this.thing[key] = value
+        }else if(Array.isArray(v)){
+          v.push(value)
+        }else{
+          this.thing[key] = [this.thing[key]]
+          this.thing[key].push(value)
+        }
+
+
+
+
+      }
+
+
+
+
       let crud = {action: "create", thing: this.thing, start: Date.now()}
       this.new_field = ""
       this.$io_ld_crud(crud)
+      this.$store.commit('crud/resetCurrentThingExtraProps')
     },
     add(){
       if(this.new_field.length > 0){
@@ -110,6 +136,7 @@ export default {
           "description": "https://www.wikidata.org/wiki/Q1200750",
           "version": "https://www.wikidata.org/wiki/Q20826013",
           "creator": "https://www.wikidata.org/wiki/Q2500638",
+          "source": "https://www.wikidata.org/wiki/Q3523102"
           //  "@base": "https://www.wikidata.org/wiki/"
         },
         "@id": "{@id}",
