@@ -145,7 +145,7 @@ export default {
 
     },
     currentNode(){
-      console.log("current")
+      console.log("current", this.currentNode)
       this.thing = this.currentNode
       this.$bvModal.show('modal-crudlet')
     }

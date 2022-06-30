@@ -68,7 +68,7 @@ const plugin = {
         });
 
         socket.on('ld_crud', function(result) {
-          //console.log(result)
+          console.log(result)
 
 
           switch (result.action) {
@@ -79,7 +79,7 @@ const plugin = {
             store.commit("crud/addHistory", result)
             break;
             case "getById":
-            store.commit("graph/currentNode", result.obj)
+            store.commit("graph/setCurrentNode", result.obj)
             break;
             default:
             console.log("OHOHOH no handle for ", result)

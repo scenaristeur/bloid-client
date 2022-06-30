@@ -37,9 +37,9 @@ const mutations = {
   },
   setCurrentNodeById(state, i){
     console.log("set ", i)
-    let params = {'action': 'get', 'what': i }
+    let params = {'action': 'getById', '@id': i }
     Vue.prototype.$socket.emit('ld_crud', params)
-    state.currentNode = i
+  //  state.currentNode = i
   },
   setLinks(state, l){
     state.links = l

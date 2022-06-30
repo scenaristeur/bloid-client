@@ -307,7 +307,7 @@ const plugin = {
         //   app.$store.commit ('app/mustExplore', node.url)
         // }
         console.log("node",node)
-        store.commit ('graph/setCurrentNodeById', node.id)
+        store.commit ('graph/setCurrentNodeById', node['@id'])
 
         const distance = 40;
         let pos = {x: distance, y: distance, z: distance}
