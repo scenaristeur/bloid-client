@@ -131,7 +131,7 @@ const plugin = {
 
       Vue.prototype.$updateHighlight = function() {
         // trigger update of highlighted objects in scene
-      //  console.log(store.state.graph.highlightNodes)
+        //  console.log(store.state.graph.highlightNodes)
         let graph = store.state.graph.graph
         graph
         .nodeColor(graph.nodeColor())
@@ -307,6 +307,7 @@ const plugin = {
         //   app.$store.commit ('app/mustExplore', node.url)
         // }
         console.log("node",node)
+        store.commit ('graph/setCurrentNodeById', node.id)
 
         const distance = 40;
         let pos = {x: distance, y: distance, z: distance}
@@ -320,8 +321,19 @@ const plugin = {
           3000  // ms transition duration
         );
         // console.log(store.state.graph.graph)
-        let n = store.state.graph.nodes.find(n => n.id == node.id)
-        store.commit ('graph/setCurrentNode', n)
+        // let n = store.state.graph.nodes.find(n => n.id == node.id)
+        // console.log(n)
+
+        // let n = Object.assign({}, node)
+        // delete n.__threeObj
+        // delete n.index
+        // delete n.x
+        // delete n.y
+        // delete n.z
+        // delete n.vx
+        // delete n.vy
+        // delete n.vz
+        store.commit ('graph/setCurrentNodeById', node['@id'])
 
       }
 

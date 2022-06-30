@@ -75,6 +75,22 @@ export default {
       new_field: null
     }
   },
+  methods: {
+
+    save(){
+      console.log("save ", this.thing)
+      let crud = {action: "create", thing: this.thing, start: Date.now()}
+      this.$io_ld_crud(crud)
+    },
+    add(){
+      if(this.new_field.length > 0){
+        this.thing[this.new_field] == undefined ? this.thing[this.new_field] = "" :alert("already exist")
+      }
+      console.log(this.thing)
+      this.new_field = ""
+
+    }
+  },
   watch: {
     createParams() {
       let template = {
@@ -85,7 +101,7 @@ export default {
           "description": "https://www.wikidata.org/wiki/Q1200750",
           "version": "https://www.wikidata.org/wiki/Q20826013",
           "creator": "https://www.wikidata.org/wiki/Q2500638",
-        //  "@base": "https://www.wikidata.org/wiki/"
+          //  "@base": "https://www.wikidata.org/wiki/"
         },
         "@id": "{@id}",
         "name": null,
@@ -127,27 +143,19 @@ export default {
       }
       console.log(this.thing)
 
-    }
-  },
-  methods: {
-
-    save(){
-      console.log("save ", this.thing)
-      let crud = {action: "create", thing: this.thing, start: Date.now()}
-      this.$io_ld_crud(crud)
     },
-    add(){
-      if(this.new_field.length > 0){
-        this.thing[this.new_field] == undefined ? this.thing[this.new_field] = "" :alert("already exist")
-      }
-      console.log(this.thing)
-      this.new_field = ""
-
+    currentNode(){
+      console.log("current")
+      this.thing = this.currentNode
+      this.$bvModal.show('modal-crudlet')
     }
   },
   computed: {
     createParams() {
       return this.$store.state.crud.createParams
+    },
+    currentNode() {
+      return this.$store.state.graph.currentNode
     },
   }
 }

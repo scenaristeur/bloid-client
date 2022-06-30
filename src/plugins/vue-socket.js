@@ -69,16 +69,33 @@ const plugin = {
 
         socket.on('ld_crud', function(result) {
           //console.log(result)
-          if (result.action == "ld_object"){
+
+
+          switch (result.action) {
+            case "ld_object":
             store.commit("graph/addNode",result.obj)
-          }else{
-            if(result.status == "ok"){
-              store.commit("crud/addHistory", result)
-              //  store.commit("graph/updateGraph", Vue.prototype.$resultToGraph(result))
-            }else{
-              alert(result.err)
-            }
+            break;
+            case "create":
+            store.commit("crud/addHistory", result)
+            break;
+            case "getById":
+            store.commit("graph/currentNode", result.obj)
+            break;
+            default:
+            console.log("OHOHOH no handle for ", result)
           }
+
+
+          // if (result.action == "ld_object"){
+          //   store.commit("graph/addNode",result.obj)
+          // }else{
+          //   if(result.status == "ok"){
+          //     store.commit("crud/addHistory", result)
+          //     //  store.commit("graph/updateGraph", Vue.prototype.$resultToGraph(result))
+          //   }else{
+          //     alert(result.err)
+          //   }
+          // }
         });
 
 

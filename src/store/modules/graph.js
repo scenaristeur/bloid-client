@@ -8,7 +8,8 @@ const state = () => ({
   nodes: [],
   links: [],
   brains: [],
-  toobar_disabled: true
+  toobar_disabled: true,
+  currentNode: null
 })
 
 
@@ -31,7 +32,14 @@ const mutations = {
     this.commit('graph/setToolBarDisabled')
   },
   setCurrentNode(state, n){
+    console.log("set ", n)
     state.currentNode = n
+  },
+  setCurrentNodeById(state, i){
+    console.log("set ", i)
+    let params = {'action': 'get', 'what': i }
+    Vue.prototype.$socket.emit('ld_crud', params)
+    state.currentNode = i
   },
   setLinks(state, l){
     state.links = l
