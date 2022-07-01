@@ -1,6 +1,7 @@
 <template>
   <div>{{thing[k]}}
-    <vue-tags-input
+
+      <vue-tags-input
     id="vue-tags"
     v-model="tag"
     placeholder="Search wikidata"
@@ -9,6 +10,8 @@
     :autocomplete-items="autocompleteItems"
     @tags-changed="update"
     />
+    <!-- {{localAutocompleteKey}}-- -->
+    <hr>
   </div>
 </template>
 
@@ -61,7 +64,8 @@ export default {
     //   await this.$loadBrainsFromWikidata(this.tags)
     //   this.tags = []
     // },
-    async getItems(query) {
+
+    async getWikidataItems(query) {
       if(query.length>0){
         this.loading = true
         let search_url = API_URL+"&language="+this.language+"&search="+query
@@ -81,14 +85,35 @@ export default {
         this.loading = false
       }
     },
+    getLocalItems(item){
+      console.log(item)
+      let params = {'action': 'get', 'what': item, callback: "crud/addLocalAutocomplete", key: this.k }
+      this.$socket.emit('ld_crud', params)
+    }
   },
   watch:{
-    'tag': _.debounce(function(item) { this.getItems(item) }, 500),
+    'tag': _.debounce(function(item) {
+      // this.$store.commit('crud/resetLocalAutoComplete', this.key)
+       this.getWikidataItems(item)
+      // if(item.length > 0){
+      //   this.getLocalItems(item)
+      // }
+
+    }, 500),
     // tags(){
     //   console.log(this.tags)
     //   //this.note.tags = this.tags//.map(t => t.text.trim())
     // },
   },
+  computed: {
+    localAutocompleteKey() {
+      let vals = this.$store.state.crud.localAutocomplete[this.k]
+      console.log(vals)
+      return vals
+      // return this.$store.state.crud.localAutocomplete
+    },
+
+  }
 }
 </script>
 

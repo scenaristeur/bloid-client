@@ -68,21 +68,25 @@ const plugin = {
         });
 
         socket.on('ld_crud', function(result) {
-          console.log(result)
+          //console.log(result)
+          if (result.callback != undefined){
+          //  console.log("cb", result.callback)
+            store.commit(result.callback, result)
+          }else{
 
-
-          switch (result.action) {
-            case "ld_object":
-            store.commit("graph/addNode",result.obj)
-            break;
-            case "create":
-            store.commit("crud/addHistory", result)
-            break;
-            case "getById":
-            store.commit("graph/setCurrentNode", result.obj)
-            break;
-            default:
-            console.log("OHOHOH no handle for ", result)
+            switch (result.action) {
+              case "ld_object":
+              store.commit("graph/addNode",result.obj)
+              break;
+              case "create":
+              store.commit("crud/addHistory", result)
+              break;
+              case "getById":
+              store.commit("graph/setCurrentNode", result.obj)
+              break;
+              default:
+              console.log("OHOHOH no handle for ", result)
+            }
           }
 
 

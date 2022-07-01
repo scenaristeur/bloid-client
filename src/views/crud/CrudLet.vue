@@ -104,9 +104,11 @@ export default {
         console.log(v)
         if (v == null || v.length == 0){
           this.thing[key] = value
-        }else if(Array.isArray(v)){
+        }else if(Array.isArray(v) && ! v.some( val => val == value )){
+          console.log(value)
           v.push(value)
         }else{
+          console.log(value)
           this.thing[key] = [this.thing[key]]
           this.thing[key].push(value)
         }

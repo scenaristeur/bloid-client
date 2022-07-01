@@ -2,7 +2,8 @@ const state = () => ({
   createParams: null,
   history: [],
   thing : {},
-  currentThingExtraProps: {}
+  currentThingExtraProps: {},
+  localAutocomplete: {}
 })
 
 const actions = {
@@ -19,6 +20,25 @@ const actions = {
 }
 
 const mutations = {
+  addLocalAutocomplete(state, result){
+    let obj = result.obj
+    let key = result.key
+    console.log(obj)
+    if (obj != undefined){
+      let vals = state.localAutocomplete[key] || []
+
+      let tag = { text: obj.name || obj['@id'] /*"oh"+" ("+obj.description+")"*/, url: obj['@id']/*, item: obj*/ }
+      vals.push(tag)
+
+      state.localAutocomplete[key] = vals
+      console.log(state.localAutocomplete)
+    }else{
+      console.log(obj)
+    }
+  },
+  resetLocalAutoComplete(state, key){
+    state.localAutocomplete[key] = []
+  },
   setCurrentThingExtraProp(state, p){
     console.log(p)
     state.currentThingExtraProps[p.key] = p.tags

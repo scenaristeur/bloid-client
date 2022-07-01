@@ -12,7 +12,7 @@
           // git submodule update --recursive --remote for later updates
           git submodule update --init --recursive
           npm install
-          npm run serve
+          npm run start
 
         </pre>
       </code>
