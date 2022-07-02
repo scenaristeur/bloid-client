@@ -39,11 +39,14 @@ const mutations = {
     console.log("set ", i)
     let params = {'action': 'getById', '@id': i }
     Vue.prototype.$socket.emit('ld_crud', params)
-  //  state.currentNode = i
+    //  state.currentNode = i
   },
   setLinks(state, l){
     state.links = l
   },
+  // setNodes(state, n){
+  //   state.nodes = n
+  // },
   setHighlightNodes(state, nodes){
     state.highlightNodes.clear();
     state.highlightLinks.clear();
@@ -63,7 +66,19 @@ const mutations = {
     index === -1 ? nodes.push(n) : Object.assign(nodes[index], n)
 
     state.graph.graphData({nodes:nodes, links: links})
+    state.nodes = nodes
+    state.links = links
     this.commit('graph/setToolBarDisabled')
+  },
+  addLink(state, l){
+    let {nodes, links} = state.graph.graphData()
+    // var index = links.findIndex(x => /*x['@id']==l['@id'] || */ x.source == l.source && x.label == l.label && x.target == l.target );
+    // index === -1 ? links.push(l) : Object.assign(links[index], l)
+    links.push({source: nodes[0]['@id'], label: l.text, target: nodes[1]['@id']})
+
+    state.graph.graphData({nodes:nodes, links: links})
+    state.nodes = nodes
+    state.links = links
   },
   setToolBarDisabled(state){
     let {nodes, links} = state.graph.graphData()
