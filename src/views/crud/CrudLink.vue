@@ -84,17 +84,23 @@ export default {
             console.log(subject,predicate, object)
             let l = {source: subject['@id'] || subject.text, label: predicate['@id'] || predicate.text, target: object['@id'] || object.text}
             links.push(l)
-                  // ajout graphData
+            // ajout graphData
             this.$store.commit('graph/addLink', l)
           });
         });
       });
-    //  console.log(links)
+      //  console.log(links)
 
       //links = links.concat(this.links)
 
       //todo ajout db
       console.log("todo ajout DB")
+      this.subjectTags =[]
+      this.predicateTags =  []
+      this.objectTags = []
+
+
+
 
     }
   },

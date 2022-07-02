@@ -41,10 +41,10 @@ const plugin = {
         .width(size.w)
         .height(size.h/2)
         .backgroundColor('#eafaff')
-        // .nodeId('id')
+         .nodeId('@id')
         .nodeLabel('name')
         .nodeAutoColorBy("type")
-        //.nodeRelSize(5)
+        .nodeRelSize(5)
         .nodeColor(node => highligth(node) ? 'yellow' : highlightNodes.has(node) ? node === hoverNode ? 'rgb(255,0,0,1)' : 'rgba(255,160,0,0.8)' : node.color)
         //.nodeColor(node => /*highlightNodes.has(node) ? node === hoverNode ? 'rgb(255,0,0,1)' : 'rgba(255,160,0,0.8)' :*/ node.color)
         //.onBackgroundClick(event => onBackgroundClick(event))
@@ -53,14 +53,15 @@ const plugin = {
         .nodeThreeObjectExtend(node => node.shape == undefined || node.shape == null)
         .nodeThreeObject(node => nodeThreeObject(node))
         // .nodeThreeObject(node => nodeThreeObjectGroup(node))
-        .linkCurvature('curvature')
-        .linkCurveRotation('rotation')
+        .linkCurvature(0.25)
+        //.linkColor(() => 'black' )
+      // .linkCurveRotation(Math.random(Math.PI/2))
         .linkThreeObjectExtend(true)
         .linkThreeObject(link => {
           // extend link with text sprite
           if(link.label != undefined){
             const sprite = new SpriteText(`${link.label}`);
-            sprite.color = 'lightgrey';
+            sprite.color = 'darkgrey'; //'lightgrey';
             sprite.textHeight = 1.5;
             return sprite;
           }

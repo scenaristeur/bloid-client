@@ -72,12 +72,15 @@ const mutations = {
   },
   addLink(state, l){
     let {nodes, links} = state.graph.graphData()
-    // var index = links.findIndex(x => /*x['@id']==l['@id'] || */ x.source == l.source && x.label == l.label && x.target == l.target );
-    // index === -1 ? links.push(l) : Object.assign(links[index], l)
-    links.push({source: nodes[0]['@id'], label: l.text, target: nodes[1]['@id']})
+    console.log(nodes)
+
+    var index = links.findIndex(x => /*x['@id']==l['@id'] || */ x.source == l.source && x.label == l.label && x.target == l.target );
+    index === -1 ? links.push(l) : Object.assign(links[index], l)
+    // links.push(l)
+    console.log(links)
 
     state.graph.graphData({nodes:nodes, links: links})
-    state.nodes = nodes
+    //  state.nodes = nodes
     state.links = links
   },
   setToolBarDisabled(state){
