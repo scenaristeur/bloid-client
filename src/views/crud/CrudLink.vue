@@ -38,7 +38,7 @@
     variant="primary"
     :disabled="subjectTags.length==0 || predicateTags.length==0 || objectTags.length==0 "
     >Create links</b-button>
-    <br>
+    <!-- <br>
     s: {{filteredSubjects}}
     <hr>
     p: {{filteredPredicates}}
@@ -47,7 +47,7 @@
     <hr>
     {{links}}
     <hr>
-    {{nodes}}
+    {{nodes}} -->
 
 
   </b-container>

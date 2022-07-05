@@ -1,5 +1,6 @@
 <template>
-  <div>{{thing[k]}}
+  <div>
+ <TagDisplay v-if="thing[k] != null" :tag="thing[k]" /> 
 
       <vue-tags-input
     id="vue-tags"
@@ -10,7 +11,7 @@
     :autocomplete-items="autocompleteItems"
     @tags-changed="update"
     />
-    <!-- {{localAutocompleteKey}}-- -->
+    <!-- {{localAutocompleteKey}}-->
     <hr>
   </div>
 </template>
@@ -23,6 +24,7 @@ export default {
   props:["thing", "k"],
   components: {
     'VueTagsInput': () => import('@johmun/vue-tags-input'),
+        'TagDisplay': () => import('@/views/crud/TagDisplay'),
   },
   data(){
     return{

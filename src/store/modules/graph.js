@@ -65,6 +65,22 @@ const mutations = {
     var index = nodes.findIndex(x => x['@id']==n['@id']);
     index === -1 ? nodes.push(n) : Object.assign(nodes[index], n)
 
+    for (const [k,v] of Object.entries(n)){
+      if(k!= '@id' && k!= '@context' && k!= 'name'){
+        console.log(k, typeof v, v)
+        if(Array.isArray(v)){
+          v.forEach(val =>{
+            // this.commit('graph/addNode', n)
+            let link = {source: n['@id'], target:val['@id'], label: k }
+            links.push(link)
+          })
+
+        }else if(typeof v == 'object'){
+          let link = {source: n['@id'], target:v['@id'], label: k }
+          links.push(link)
+        }
+      }
+    }
     state.graph.graphData({nodes:nodes, links: links})
     state.nodes = nodes
     state.links = links

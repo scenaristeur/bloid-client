@@ -68,7 +68,7 @@ const plugin = {
         });
 
         socket.on('ld_crud', function(result) {
-          //console.log(result)
+          console.log(result)
           if (result.callback != undefined){
           //  console.log("cb", result.callback)
             store.commit(result.callback, result)
@@ -78,7 +78,7 @@ const plugin = {
               case "ld_object":
               store.commit("graph/addNode",result.obj)
               break;
-              case "create":
+              case "get":
               store.commit("crud/addHistory", result)
               break;
               case "getById":

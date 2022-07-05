@@ -19,9 +19,7 @@
         </b-col>
         <b-col sm="9">
 
-          <div v-if="Array.isArray(thing[k])" > Multiple<br>
-            <b-button v-for="(v , i) in thing[k]" :key="i" size="sm" :variant="thingVariant(v)">{{v.name || v.text}} ({{v.description}})({{v['https://www.wikidata.org/wiki/Q3523102']}})</b-button>
-          </div>
+
           <!-- <div v-else>
             <b-button size="sm" :variant="thingVariant(thing[k])">{{thing[k]}}</b-button>
 
@@ -31,10 +29,10 @@
 
           <b-form-input v-if="k == 'name'" :id="`field-${k}`" autofocus :state="thing[k] != null && thing[k].length>0" v-model="thing[k]" :placeholder="'{'+k+'}'"></b-form-input>
 
-          <div v-else>
+
             <!-- <b-form-input :id="`field-${k}`" v-model="thing[k]" :placeholder="'{'+k+'}'"></b-form-input> -->
             <KTag :thing="thing" :k="k"/>
-          </div>
+
           <!--
           <b-form-input v-if="thing[k].split('^^').length > 0" :type="thing[k].split('^^')[1]" v-model="thing[k].split('^^')[0]" >
 
@@ -118,20 +116,7 @@ export default {
       this.$io_ld_crud(crud)
       this.$store.commit('crud/resetCurrentThingExtraProps')
     },
-    thingVariant(t){
-      let variant = "outline-secondary"
-      switch (t['https://www.wikidata.org/wiki/Q3523102']) { // source
-        case 'wikidata':
-        variant = 'outline-success'
-        break;
-        case 'local':
-        variant = 'outline-warnig'
-        break;
-        default:
-        console.log("no variant for ", t['https://www.wikidata.org/wiki/Q3523102'])
-      }
-      return variant
-    },
+
     onCancel(){
       console.log("todo cancel")
     },
