@@ -91,6 +91,11 @@ export default {
       });
       //  console.log(links)
 
+      let params = {action: "addLinks", subjects: this.subjectTags, predicates: this.predicateTags, objects: this.objectTags}
+
+      this.$io_ld_crud(params)
+
+
       //links = links.concat(this.links)
 
       //todo ajout db
@@ -107,13 +112,17 @@ export default {
   computed: {
     filteredSubjects() {
       let filtered = this.nodes.filter(i => {
-        return i.name.toLowerCase().indexOf(this.subjectTag.toLowerCase()) !== -1;
+        i.name == undefined ?  console.log("todo i.name undefined", i) : ""
+        i.name == undefined ? i.name = i.text  : ""
+        return i.name.toLowerCase().indexOf(this.subjectTag.toLowerCase()) !== -1
       });
       return filtered.map(i => {return {text: i.name, '@id': i['@id']}})
     },
     filteredObjects() {
       let filtered = this.nodes.filter(i => {
-        return i.name.toLowerCase().indexOf(this.objectTag.toLowerCase()) !== -1;
+        i.name == undefined ?  console.log("todo i.name undefined", i) : ""
+        i.name == undefined ? i.name = i.text  : ""
+        return i.name.toLowerCase().indexOf(this.objectTag.toLowerCase()) !== -1
       });
       return filtered.map(i => {return {text: i.name, '@id': i['@id']}})
     },
